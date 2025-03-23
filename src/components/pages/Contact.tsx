@@ -13,8 +13,6 @@ const Contact = () => {
         email: false,
         message: false,
     });
-
-    //fix
     const [isMessageRightLength, setIsMessageRightLength] = useState(true);
     const [touched, setTouched] = useState({
         name: false,

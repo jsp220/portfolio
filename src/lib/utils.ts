@@ -11,4 +11,6 @@ const validateEmail = (email: string): boolean => {
     return emailRegex.test(email);
 };
 
-export { validateEmail };
+const validateMessage = (message: string): boolean => message.length <= 30000;
+
+export { validateEmail, validateMessage };

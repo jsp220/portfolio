@@ -1,4 +1,4 @@
-import { validateEmail } from "@/lib/utils";
+import { validateEmail, validateMessage } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import emailjs from "@emailjs/browser";
 
@@ -13,18 +13,24 @@ const Contact = () => {
         email: false,
         message: false,
     });
+
+    //fix
+    const [isMessageRightLength, setIsMessageRightLength] = useState(true);
     const [touched, setTouched] = useState({
         name: false,
         email: false,
         message: false,
     });
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [isButtonEnabled, setIsButtonEnabled] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const allFieldsValid = Object.values(isFormValid).every(Boolean);
-        setIsButtonDisabled(!allFieldsValid || loading);
-    }, [formData, isFormValid, loading]);
+        const allFieldsValid = [
+            ...Object.values(isFormValid),
+            isMessageRightLength,
+        ].every(Boolean);
+        setIsButtonEnabled(allFieldsValid && !loading);
+    }, [isFormValid, isMessageRightLength, loading]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,6 +40,7 @@ const Contact = () => {
 
         setFormData((prev) => ({ ...prev, [name]: value }));
         setIsFormValid((prev) => ({ ...prev, [name]: true }));
+        setIsMessageRightLength(validateMessage(value));
     };
 
     const handleBlur = (
@@ -42,14 +49,20 @@ const Contact = () => {
         const { name, value } = e.target;
 
         setTouched((prev) => ({ ...prev, [name]: true }));
-        if (!value) {
+
+        const trimmedValue = value.trim();
+        setFormData((prev) => ({ ...prev, [name]: trimmedValue }));
+
+        if (!trimmedValue) {
             setIsFormValid((prev) => ({ ...prev, [name]: false }));
         } else if (name === "email") {
             // Check if the email is valid
             setIsFormValid((prev) => ({
                 ...prev,
-                [name]: validateEmail(value),
+                [name]: validateEmail(trimmedValue),
             }));
+        } else if (name === "message") {
+            setIsMessageRightLength(validateMessage(trimmedValue));
         }
     };
 
@@ -162,11 +175,17 @@ const Contact = () => {
                     >
                         Please enter a message.
                     </p>
+                    <p
+                        hidden={isMessageRightLength}
+                        className="text-red-700 dark:text-red-500 text-sm pt-0.5"
+                    >
+                        Your message is too long.
+                    </p>
                 </div>
                 <div className="pt-2">
                     <button
                         type="submit"
-                        disabled={isButtonDisabled}
+                        disabled={!isButtonEnabled}
                         className="bg-white dark:bg-gray-700 h-auto rounded-[calc(8px)] border-1 border-transparent py-1 px-2 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         Submit

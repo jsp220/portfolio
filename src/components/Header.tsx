@@ -25,7 +25,6 @@ const Header = () => {
                         to="/projects"
                         label="Projects"
                         isActive={currentPage === "projects"}
-                        hidden={true}
                     />
                     <NavItem
                         to="/contact"

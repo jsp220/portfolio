@@ -14,13 +14,13 @@ const Projects = () => {
                 <Link to="https://finance-dashboard-dun.vercel.app/">
                     Personal Finance Dashboard
                 </Link>{" "}
-                (
-                <span>
+                <span className="text-sm">
+                    (
                     <Link to="https://github.com/jsp220/finance-dashboard">
                         GitHub Repo
                     </Link>
+                    )
                 </span>
-                )
             </h2>
             <p className="pb-2">
                 Simple web app designed to allow users to track their income and

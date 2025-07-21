@@ -3,38 +3,37 @@ import NavItem from "./NavItem";
 
 const Header = () => {
     const location = useLocation();
-    const currentPage =
-        location.pathname === "/" ? "about" : location.pathname.slice(1);
+    const currentPage = location.pathname.slice(1);
 
     return (
         <header className="pb-2 mb-2 border-b-1 border-gray-600">
             <nav className="flex justify-between items-end">
                 <Link
-                    to="/"
+                    to="/portfolio"
                     className="ml-2 font-bold text-xl md:text-2xl text-nowrap"
                 >
                     Joon Park
                 </Link>
                 <ul className="flex flex-wrap justify-end ml-auto mt-0 text-right">
                     <NavItem
-                        to="/"
+                        to="/portfolio"
                         label="About"
-                        isActive={currentPage === "about"}
+                        isActive={currentPage === "portfolio"}
                     />
                     <NavItem
-                        to="/projects"
+                        to="/portfolio/projects"
                         label="Projects"
-                        isActive={currentPage === "projects"}
+                        isActive={currentPage === "portfolio/projects"}
                     />
                     <NavItem
-                        to="/contact"
+                        to="/portfolio/contact"
                         label="Contact"
-                        isActive={currentPage === "contact"}
+                        isActive={currentPage === "portfolio/contact"}
                     />
                     <NavItem
-                        to="/resume"
+                        to="/portfolio/resume"
                         label="Resume"
-                        isActive={currentPage === "resume"}
+                        isActive={currentPage === "portfolio/resume"}
                     />
                 </ul>
             </nav>

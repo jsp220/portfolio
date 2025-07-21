@@ -39,7 +39,7 @@ const App = () => {
                 <section className="w-full px-2 pt-1">
                     <Routes>
                         <Route
-                            path="/"
+                            path="/portfolio"
                             element={
                                 <PageWrapper>
                                     <About />
@@ -47,7 +47,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path="/projects"
+                            path="/portfolio/projects"
                             element={
                                 <PageWrapper>
                                     <Projects />
@@ -55,7 +55,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path="/contact"
+                            path="/portfolio/contact"
                             element={
                                 <PageWrapper>
                                     <Contact />
@@ -63,7 +63,7 @@ const App = () => {
                             }
                         />
                         <Route
-                            path="/resume"
+                            path="/portfolio/resume"
                             element={
                                 <PageWrapper>
                                     <Resume />
